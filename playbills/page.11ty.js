@@ -15,13 +15,14 @@ function parseCanvas(canvas, index, config) {
   return { locations, metadata };
 }
 
-function parseTitleBox(annotation) {
+function parseTitleBox(annotation, index) {
   const { body, target } = annotation
   const [ url, fragment ] = target.split('#')
   const [ key, values ] = fragment.split('=')
   const [ x, y, width, height ] = values.split(',')
   const text = body.value
-  return { x, y, width, height, text }
+  const id = `annotation-${index}`
+  return { id, x, y, width, height, text }
 }
 
 function scaledTitleBox(box, scale) {
@@ -29,7 +30,7 @@ function scaledTitleBox(box, scale) {
   const y = box.y / scale
   const height = box.height / scale
   const width = box.width / scale
-  return `<rect fill="transparent" stroke="orange" x=${x} y=${y} height=${height} width=${width} />`
+  return `<rect id="${box.id}" fill="transparent" stroke="orange" x=${x} y=${y} height=${height} width=${width} />`
 }
 module.exports = class Playbill {
   data() {
@@ -52,7 +53,7 @@ module.exports = class Playbill {
     const stringDates = canvasDates.map(date => `<li>${date.body.value}</li>`)
     const canvasTitles = titles.filter(item => item.target.startsWith(canvas['@id']))
     const titleBoxes = canvasTitles.map(parseTitleBox)
-    const stringTitles = titleBoxes.map(box => `<li>${box.text}</li>`)
+    const stringTitles = titleBoxes.map(box => `<li><a href="#${box.id}">${box.text}</a></li>`)
     const scale = Math.max((canvas.height / imageHeight), (canvas.width / imageWidth))
     const svgTitles = titleBoxes.map(box => scaledTitleBox(box, scale))
 
@@ -61,6 +62,12 @@ module.exports = class Playbill {
     const previousLink = href.previous ? `<a href=..${href.previous}>Previous</a>` : 'Previous'
 
     return `
+    <style>
+      rect:target {
+        fill: white;
+        fill-opacity: 0.5;
+      }
+    </style>
     <h1>${manifest.label}</h1>
     <nav aria-label="Browse playbills">
     ${previousLink}
