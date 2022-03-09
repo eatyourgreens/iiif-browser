@@ -50,7 +50,7 @@ module.exports = class Playbill {
     const [src] = locations
     const canvasDates = dates.filter(item => item.target === canvas['@id'])
     const stringDates = canvasDates.map(date => `<p>${date.body.value}</p>`)
-    const canvasTitles = titles.items.filter(item => item.target.startsWith(canvas['@id']))
+    const canvasTitles = titles.filter(item => item.target.startsWith(canvas['@id']))
     const titleBoxes = canvasTitles.map(parseTitleBox)
     const stringTitles = titleBoxes.map(box => `<p>${box.text}</p>`)
     const scale = Math.max((canvas.height / imageHeight), (canvas.width / imageWidth))
@@ -65,7 +65,7 @@ module.exports = class Playbill {
     ${previousLink}
     ${nextLink}
     </nav>
-    <svg width=700 style="float:left;" viewbox="0,0,1400,2000">
+    <svg width=700 style="float:left;" viewbox="0,0,${imageWidth},${imageHeight}">
       <image xlink:Href=${src} />
       ${svgTitles.join('\n')}
     </svg>
