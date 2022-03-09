@@ -12,7 +12,7 @@ https://eatyourgreens.github.io/iiif-browser/playbills/0.html
 
 ## How it works
 
-`_data/config.js` contains the URLs of a British Library [IIIF manifest](https://iiif.io/api/presentation/2.0/#manifest), which lists digitised theatre playbills, and the URLs of two [annotation collections](https://iiif.io/api/presentation/3.0/#58-annotation-collection):
+`_data/config.js` contains the URL of a British Library [IIIF manifest](https://iiif.io/api/presentation/2.0/#manifest), which lists digitised theatre playbills, and the URLs of two [annotation collections](https://iiif.io/api/presentation/3.0/#58-annotation-collection):
 - `dates.json` collects plain text dates that volunteers have entered, one per playbill per volunteer.
 - `titles.json` collects rectangles that volunteers drew around performance titles, along with the transcribed titles themselves.
 
