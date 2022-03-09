@@ -6,3 +6,10 @@ npx eleventy --serve
 </code></pre>
 <p>Browse the annotated images on
 https://eatyourgreens.github.io/iiif-browser/playbills/0.html</p>
+<h2>How it works</h2>
+<p><code>_data/config.js</code> contains the URLs of a British Library IIIF manifest, which lists digitised theatre playbills, and the URLs of two annotation collections:</p>
+<ul>
+<li><code>dates.json</code> collects plain text dates that volunteers have entered, one per playbill per volunteer.</li>
+<li><code>titles.json</code> collects rectangles that volunteers drew around performance titles, along with the transcribed titles themselves.</li>
+</ul>
+<p><code>playbills/page.11ty.js</code> is an Eleventy template that loops over the default sequence of canvases in the manifest (<code>manifest.sequences[0].canvases</code>), printing out some HTML for each canvas. The HTML contains the canvas image, rendered as an SVG <code>&lt;image&gt;</code> overlaid with SVG rectangles for each crowdsourced title, and lists of the title and date text annotations for each canvas.</p>
