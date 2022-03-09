@@ -35,7 +35,16 @@ module.exports = class Playbill {
     const stringDates = canvasDates.map(date => `<p>${date.body.value}</p>`)
     const canvasTitles = titles.items.filter(item => item.target.startsWith(canvas['@id']))
     const stringTitles = canvasTitles.map(title => `<p>${title.body.value}</p>`)
+
+    const { href } = pagination
+    const nextLink = href.next ? `<a href=..${href.next}>Next</a>` : 'Next'
+    const previousLink = href.previous ? `<a href=..${href.previous}>Previous</a>` : 'Previous'
+
     return `
+    <nav aria-label="Browse playbills">
+    ${previousLink}
+    ${nextLink}
+    </nav>
     <svg width=700 style="float:left;" viewbox="0,0,1400,2000">
       <image xlink:Href=${src} />
     </svg>
