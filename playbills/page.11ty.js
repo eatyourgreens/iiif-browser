@@ -49,10 +49,10 @@ module.exports = class Playbill {
     const { locations, metadata } = parseCanvas(canvas, pagination.pageNumber, config)
     const [src] = locations
     const canvasDates = dates.filter(item => item.target === canvas['@id'])
-    const stringDates = canvasDates.map(date => `<p>${date.body.value}</p>`)
+    const stringDates = canvasDates.map(date => `<li>${date.body.value}</li>`)
     const canvasTitles = titles.filter(item => item.target.startsWith(canvas['@id']))
     const titleBoxes = canvasTitles.map(parseTitleBox)
-    const stringTitles = titleBoxes.map(box => `<p>${box.text}</p>`)
+    const stringTitles = titleBoxes.map(box => `<li>${box.text}</li>`)
     const scale = Math.max((canvas.height / imageHeight), (canvas.width / imageWidth))
     const svgTitles = titleBoxes.map(box => scaledTitleBox(box, scale))
 
@@ -61,16 +61,24 @@ module.exports = class Playbill {
     const previousLink = href.previous ? `<a href=..${href.previous}>Previous</a>` : 'Previous'
 
     return `
+    <h1>${manifest.label}</h1>
     <nav aria-label="Browse playbills">
     ${previousLink}
     ${nextLink}
     </nav>
+    <h2>Digital image</h2>
     <svg width=700 style="float:left;" viewbox="0,0,${imageWidth},${imageHeight}">
       <image xlink:Href=${src} />
       ${svgTitles.join('\n')}
     </svg>
-    ${stringTitles.join('\n')}
-    ${stringDates.join('\n')}
+    <h2>Annotated Titles</h2>
+    <ul>
+      ${stringTitles.join('\n')}
+    </ul>
+    <h2>Annotated Dates</h2>
+    <ul>
+      ${stringDates.join('\n')}
+    </ul>
     `
   }
 }
