@@ -48,7 +48,7 @@ module.exports = class Playbill {
     const { width, height, images } = canvas
     const { locations, metadata } = parseCanvas(canvas, pagination.pageNumber, config)
     const [src] = locations
-    const canvasDates = dates.items.filter(item => item.target === canvas['@id'])
+    const canvasDates = dates.filter(item => item.target === canvas['@id'])
     const stringDates = canvasDates.map(date => `<p>${date.body.value}</p>`)
     const canvasTitles = titles.items.filter(item => item.target.startsWith(canvas['@id']))
     const titleBoxes = canvasTitles.map(parseTitleBox)
@@ -69,8 +69,8 @@ module.exports = class Playbill {
       <image xlink:Href=${src} />
       ${svgTitles.join('\n')}
     </svg>
-    ${stringDates.join('\n')}
     ${stringTitles.join('\n')}
+    ${stringDates.join('\n')}
     `
   }
 }

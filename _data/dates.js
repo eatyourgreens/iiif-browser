@@ -15,10 +15,20 @@ async function fetchJSON(url) {
   return null
 }
 
+async function fetchPages(pages, url) {
+  const page = await fetchJSON(url)
+  pages = [...pages, page]
+  if (page.next) {
+    pages = await fetchPages(pages, page.next.id)
+  }
+  return pages
+}
+
 async function fetchAnnotations(url) {
   const collection = await fetchJSON(url)
-  const firstPage = await fetchJSON(collection.first.id)
-  console.log('read', firstPage.items.length, 'dates')
-  return firstPage
+  const pages = await fetchPages([], collection.first.id)
+  const items = pages.map(page => page.items).flat()
+  console.log('read', items.length, 'dates')
+  return items
 }
 module.exports = fetchAnnotations(dates)
