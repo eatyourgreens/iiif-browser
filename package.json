@@ -1,0 +1,23 @@
+{
+  "name": "iiif-browser",
+  "version": "0.1.0",
+  "description": "March 2022 hackday project: browse an annotated manifest from the British Library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eatyourgreens/iiif-browser.git"
+  },
+  "author": "Jim O'Donnell",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/eatyourgreens/iiif-browser/issues"
+  },
+  "homepage": "https://github.com/eatyourgreens/iiif-browser#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.0-canary.1",
+    "node-fetch": "^2.6.7"
+  }
+}
