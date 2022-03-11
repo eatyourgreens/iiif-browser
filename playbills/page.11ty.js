@@ -17,7 +17,7 @@ function parseCanvas(canvas, index, config) {
 
 function parseTitleBox(annotation, index) {
   const { body, target } = annotation
-  const [ url, fragment ] = target.split('#')
+  const fragment = target.selector.value
   const [ key, values ] = fragment.split('=')
   const [ x, y, width, height ] = values.split(',')
   const text = body.value
@@ -49,9 +49,9 @@ module.exports = class Playbill {
     const { width, height, images } = canvas
     const { locations, metadata } = parseCanvas(canvas, pagination.pageNumber, config)
     const [src] = locations
-    const canvasDates = dates.filter(item => item.target === canvas['@id'])
+    const canvasDates = dates.filter(item => item.target.source.id === canvas['@id'])
     const stringDates = canvasDates.map(date => `<li>${date.body.value}</li>`)
-    const canvasTitles = titles.filter(item => item.target.startsWith(canvas['@id']))
+    const canvasTitles = titles.filter(item => item.target.source.id === canvas['@id'])
     const titleBoxes = canvasTitles.map(parseTitleBox)
     const stringTitles = titleBoxes.map(box => `<li><a href="#${box.id}">${box.text}</a></li>`)
     const scale = Math.max((canvas.height / imageHeight), (canvas.width / imageWidth))
