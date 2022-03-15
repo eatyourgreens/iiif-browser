@@ -43,7 +43,7 @@ module.exports = class Playbill {
     }
   }
 
-  render({ config, manifest, dates, titles, pagination }) {
+  render({ config, manifest, consensusDates, dates, titles, pagination }) {
     const { imageHeight, imageWidth } = config
     const [ canvas ] = pagination.items
     const { width, height, images } = canvas
@@ -56,6 +56,9 @@ module.exports = class Playbill {
     const stringTitles = titleBoxes.map(box => `<li><a href="#${box.id}">${box.text}</a></li>`)
     const scale = Math.max((canvas.height / imageHeight), (canvas.width / imageWidth))
     const svgTitles = titleBoxes.map(box => scaledTitleBox(box, scale))
+
+    const consensus = consensusDates.filter(item => item.target.source.id === canvas['@id'])
+    const stringConsensus = consensus.map(date => `<li>${date.body.value}</li>`)
 
     const { href } = pagination
     const nextLink = href.next ? `<a href=..${href.next}>Next</a>` : 'Next'
@@ -78,6 +81,10 @@ module.exports = class Playbill {
       <image xlink:Href=${src} />
       ${svgTitles.join('\n')}
     </svg>
+    <h2>Consensus Date</h2>
+    <ul>
+      ${stringConsensus.join('\n')}
+    </ul>
     <h2>Annotated Titles</h2>
     <ul>
       ${stringTitles.join('\n')}
