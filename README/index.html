@@ -7,9 +7,10 @@ npx eleventy --serve
 <p>Browse the annotated images on
 https://eatyourgreens.github.io/iiif-browser/playbills/0.html</p>
 <h2>How it works</h2>
-<p><code>_data/config.js</code> contains the URL of a British Library <a href="https://iiif.io/api/presentation/2.0/#manifest">IIIF manifest</a>, which lists digitised theatre playbills, and the URLs of two <a href="https://iiif.io/api/presentation/3.0/#58-annotation-collection">annotation collections</a>:</p>
+<p><code>_data/config.js</code> contains the URL of a British Library <a href="https://iiif.io/api/presentation/2.0/#manifest">IIIF manifest</a>, which lists digitised theatre playbills, and the URLs of three <a href="https://iiif.io/api/presentation/3.0/#58-annotation-collection">annotation collections</a>:</p>
 <ul>
-<li><code>dates.json</code> collects plain text dates that volunteers have entered, one per playbill per volunteer.</li>
-<li><code>titles.json</code> collects rectangles that volunteers drew around performance titles, along with the transcribed titles themselves.</li>
+<li><code>consensusDates.js</code> consensus plain text dates, one per playbill.</li>
+<li><code>dates.js</code> collects plain text dates that volunteers have entered, one per playbill per volunteer.</li>
+<li><code>titles.js</code> collects rectangles that volunteers drew around performance titles, along with the transcribed titles themselves.</li>
 </ul>
 <p><code>playbills/page.11ty.js</code> is an <a href="https://www.11ty.dev/">Eleventy</a> template that loops over the default sequence of canvases in the manifest (<code>manifest.sequences[0].canvases</code>), printing out some HTML for each canvas. The HTML contains the canvas image, rendered as an SVG <code>&lt;image&gt;</code> overlaid with SVG rectangles for each crowdsourced title, and lists of the title and date text annotations for each canvas. Titles are linked to their related rectangle on the image via page fragment identifiers.</p>
