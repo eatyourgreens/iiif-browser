@@ -1,4 +1,3 @@
-const fetch = require('node-fetch')
 const { manifestUrl } = require('./config')
 
 async function readManifest(url) {
