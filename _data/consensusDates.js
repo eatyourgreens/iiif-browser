@@ -1,4 +1,3 @@
-const fetch = require('node-fetch')
 const { consensusDates } = require('./config')
 
 async function fetchJSON(url) {

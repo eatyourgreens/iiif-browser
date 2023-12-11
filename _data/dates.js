@@ -1,4 +1,3 @@
-const fetch = require('node-fetch')
 const { dates } = require('./config')
 
 async function fetchJSON(url) {
